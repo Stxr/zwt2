@@ -1,14 +1,15 @@
 #include<reg52.h>
 #include<string.h>
 #define uchar unsigned char
-uchar a[30]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,};
-uchar b[]={'h','i'};
-uchar c[]={'A',' ','r','o','b','o','t'};
-uchar no[]={'S','o','r','r','y','I','d','o','n','"','t','k','n','o','w'};
-uchar d[]={'7'};
-uchar e[]={'o','k'};
-uchar r[]={'n','o',' ','p','r','o','b','l','e','m'};
+uchar a[30];
+uchar b[]="hi";
+uchar c[]="A robot";
+uchar no[]="sorry i don't know";
+uchar d[]="7";
+uchar e[]="ok";
+uchar r[]="no problem";
 int s ,i,m,n,x,z,l;
+void clear(char *p);
 void delay(int s)
 {int j,k;
   for(j=s;j>0;j--)
@@ -40,6 +41,7 @@ void main()
 								while(!TI);
 								 TI=0;
 								n++;}while(n==1);
+								clear(a);
 							}
 	
 							if(strcmp(a,"who are you?")==0)
@@ -47,25 +49,32 @@ void main()
 									for(m=0;m<7;m++)
 								{	SBUF=c[m];
 									while(!TI);
-									 TI=0;	}}
+									 TI=0;	}
+									 clear(a);}
 						if(strcmp(a,"how old are you?")==0)
 										{i=0;
 								SBUF=d[0];
 									while(!TI);
-									 TI=0;	}
+									 TI=0;	
+									 clear(a);
+									 }
 							if(strcmp(a,"turn on a light")==0)
 										{i=0;
 											P1=0xfe;
 									for(z=0;z<2;z++)
 								{	SBUF=e[z];
 									while(!TI);
-									 TI=0;	}}
+									 TI=0;	}
+									 clear(a);
+									 }
 					if(strcmp(a,"turn off a light")==0)
 										{i=0;P1=0xff;
 									for(l=0;l<10;l++)
 								{	SBUF=r[l];
 									while(!TI);
-									 TI=0;	}}				 
+									 TI=0;	}
+									 clear(a);
+									 }				 
 				/*{	for(x=0;x<15;x++)
 								{	SBUF=no[x];
 									while(!TI);
@@ -79,4 +88,11 @@ void ser() interrupt 4
 	a[i]=SBUF;
 	RI=0;
 	i++;
+}
+void clear(char *p) //clear a array
+{
+	for(;*p!='\0';p++)
+	{
+		*p=NULL;
+	}
 }
